@@ -1,5 +1,5 @@
 class Group < ApplicationRecord
-  as_many :group_memberships
+  has_many :group_memberships
   has_many :employees, through: :group_memberships
 
   has_many :reporting_relationships_as_supervisor,

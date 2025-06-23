@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_23_072426) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_23_072637) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -38,6 +38,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_23_072426) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "reporting_relationships", force: :cascade do |t|
+    t.bigint "subordinate_id", null: false
+    t.string "supervisor_type", null: false
+    t.bigint "supervisor_id", null: false
+    t.string "connection_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subordinate_id"], name: "index_reporting_relationships_on_subordinate_id"
+    t.index ["supervisor_type", "supervisor_id"], name: "index_reporting_relationships_on_supervisor"
+  end
+
   add_foreign_key "group_memberships", "employees"
   add_foreign_key "group_memberships", "groups"
+  add_foreign_key "reporting_relationships", "employees", column: "subordinate_id"
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_23_072222) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_23_072426) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -21,10 +21,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_23_072222) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "group_memberships", force: :cascade do |t|
+    t.bigint "employee_id", null: false
+    t.bigint "group_id", null: false
+    t.string "role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_group_memberships_on_employee_id"
+    t.index ["group_id"], name: "index_group_memberships_on_group_id"
+  end
+
   create_table "groups", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "group_memberships", "employees"
+  add_foreign_key "group_memberships", "groups"
 end

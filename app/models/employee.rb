@@ -1,4 +1,5 @@
 class Employee < ApplicationRecord
+  include Supervisorable
   has_many :reporting_relationships_as_subordinate,
            class_name: 'ReportingRelationship',
            foreign_key: :subordinate_id

@@ -5,14 +5,12 @@ class Group < ApplicationRecord
 
   has_many :reporting_relationships_as_supervisor,
            as: :supervisor,
-           class_name: 'ReportingRelationship'
-
+           class_name: "ReportingRelationship"
+  has_many :reporting_relationships_as_supervisor,
+           as: :supervisor,
+           class_name: "ReportingRelationship",
+           dependent: :destroy
   has_many :subordinates,
            through: :reporting_relationships_as_supervisor,
            source: :subordinate
-
-  has_many :reporting_relationships_as_supervisor,
-           as: :supervisor,
-           class_name: 'ReportingRelationship',
-           dependent: :destroy
 end
